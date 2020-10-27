@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Config.cs" />
+    <Compile Include="Classes\Source.cs" />
+    <Compile Include="Classes\SourceCompare.cs" />
+    <Compile Include="Classes\SourceCompareResult.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
