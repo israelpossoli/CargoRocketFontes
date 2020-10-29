@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CargoRocketFontes.Classes
@@ -10,28 +12,44 @@ namespace CargoRocketFontes.Classes
     public enum SourceCompareOptions
     {
         DEFAULT = 0,
-        WITHOUT_SECONDS,
+        DISCARD_SECONDS,
         DISCARD_HOUR
     }
 
 
     public class SourceCompare
     {
+        public event Action<int,int> ProgressInitialize;
+        public event Action<int> ProgressChanged;
 
         public SourceCompare()
         {
 
         }
 
-        public SourceCompareResult Run(string repository, string sourcesFile, SourceCompareOptions options, string pattern = "*.*")
+        public SourceCompareResult Teste(string repository, string sourcesFile, SourceCompareOptions options, BackgroundWorker backgroundWorker, string pattern = "*.*")
         {
             SourceCompareResult result = new SourceCompareResult();
-            string[] repositoryFiles = Directory.GetFiles(repository, pattern, SearchOption.AllDirectories);
+
+            OnProgressInitialize(0, 99);
+            for (int i = 0; i < 100; i++)
+            {
+                Thread.Sleep(100);
+                OnProgressChanged(i);
+            }
+
+            
+
+            return result;
+        }
+
+        public SourceCompareResult Run(string repository, string sourcesFile, SourceCompareOptions options, BackgroundWorker backgroundWorker, string pattern = "*.*")
+        {
+            SourceCompareResult result = new SourceCompareResult();
+            string[] repositoryFiles;
             List<Source> sources = new List<Source>();
 
             string line;
-
-
 
             using (var sr = new StreamReader(sourcesFile))
             {
@@ -56,12 +74,15 @@ namespace CargoRocketFontes.Classes
                     }
 
                 }
-
-
             }
+
+            repositoryFiles = Directory.GetFiles(repository, pattern, SearchOption.AllDirectories);
+
+            OnProgressInitialize(0, repositoryFiles.Length -1);
 
             for (int i = 0; i < repositoryFiles.Length; i++)
             {
+                OnProgressChanged(i);
                 string filename = Path.GetFileName(repositoryFiles[i]).ToLower();
                 DateTime fileModification = File.GetCreationTime(repositoryFiles[i]);
                 string dateRepository = fileModification.ToShortDateString();
@@ -88,7 +109,7 @@ namespace CargoRocketFontes.Classes
                                 diff = true;
                             }
                         }
-                        else if (options == SourceCompareOptions.WITHOUT_SECONDS)
+                        else if (options == SourceCompareOptions.DISCARD_SECONDS)
                         {
                             if (hourRepository.Substring(0, 5) != s.hour.Substring(0, 5))
                             {
@@ -118,5 +139,25 @@ namespace CargoRocketFontes.Classes
             return result;
 
         }
+
+        private void OnProgressInitialize(int min, int max)
+        {
+            var eh = ProgressInitialize;
+            if (eh != null)
+            {
+                eh(min, max);
+            }
+        }
+
+
+        private void OnProgressChanged(int progress)
+        {
+            var eh = ProgressChanged;
+            if (eh != null)
+            {
+                eh(progress);
+            }
+        }
+
     }
 }

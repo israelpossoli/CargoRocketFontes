@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,10 +15,13 @@ namespace CargoRocketFontes
     public partial class FormMain : Form
     {
         public static Config config;
+        private SourceCompareResult sourceCompareResult;
 
         public FormMain()
         {
             InitializeComponent();
+
+            sourceCompareResult = new SourceCompareResult();
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -30,6 +34,66 @@ namespace CargoRocketFontes
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
+            buttonRun.Enabled = false;
+            progressBarExec.Value = 0;
+            progressBarExec.Style = ProgressBarStyle.Marquee;
+
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        private void checkBoxWithouSeconds_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxDiscardHour_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxWithouSeconds.Checked = false;
+            checkBoxWithouSeconds.Enabled = !checkBoxDiscardHour.Checked;
+        }
+
+
+        /// <summary>
+        /// Evento de inicialização do ProgressBar classe SourceCompare
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        private void SourceCompare_ProgressInitialize(int min, int max)
+        {
+            base.Invoke((Action)delegate
+            {
+                progressBarExec.Minimum = min;
+                progressBarExec.Maximum = max;
+                if (min == 0 && max == 0)
+                {
+                    progressBarExec.Style = ProgressBarStyle.Marquee;
+                }
+                else
+                {
+                    progressBarExec.Style = ProgressBarStyle.Blocks;
+                }
+
+                progressBarExec.Refresh();
+            });
+
+        }
+
+        /// <summary>
+        /// Evento da classe SourceCompare
+        /// </summary>
+        /// <param name="progress"></param>
+        private void SourceCompare_ProgressChanged(int progress)
+        {
+            base.Invoke((Action)delegate
+            {
+                progressBarExec.Value = progress;
+                progressBarExec.Refresh();
+                Application.DoEvents();
+            });
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
             SourceCompareOptions sourceCompareOptions = SourceCompareOptions.DEFAULT;
             if (checkBoxDiscardHour.Checked)
             {
@@ -37,12 +101,19 @@ namespace CargoRocketFontes
             }
             else if (checkBoxWithouSeconds.Checked)
             {
-                sourceCompareOptions = SourceCompareOptions.WITHOUT_SECONDS;
+                sourceCompareOptions = SourceCompareOptions.DISCARD_SECONDS;
             }
-            SourceCompareResult sourceCompareResult = new SourceCompareResult();
-            SourceCompare sourceCompare = new SourceCompare();
-            sourceCompareResult = sourceCompare.Run(textBoxRepository.Text, textBoxSources.Text, sourceCompareOptions);
 
+            SourceCompare sourceCompare = new SourceCompare();
+            sourceCompare.ProgressInitialize += SourceCompare_ProgressInitialize;
+            sourceCompare.ProgressChanged += SourceCompare_ProgressChanged;
+            sourceCompareResult.Clear();
+            sourceCompareResult = sourceCompare.Run(textBoxRepository.Text, textBoxSources.Text, sourceCompareOptions, sender as BackgroundWorker);
+            // sourceCompareResult = sourceCompare.Teste(textBoxRepository.Text, textBoxSources.Text, sourceCompareOptions, sender as BackgroundWorker);
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             textBoxResult.Clear();
 
             if (sourceCompareResult.sourceDiff.Count > 0)
@@ -71,17 +142,7 @@ namespace CargoRocketFontes
                 }
             }
 
-        }
-
-        private void checkBoxWithouSeconds_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxDiscardHour_CheckedChanged(object sender, EventArgs e)
-        {
-            checkBoxWithouSeconds.Checked = false;
-            checkBoxWithouSeconds.Enabled = !checkBoxDiscardHour.Checked;
+            buttonRun.Enabled = true;
         }
     }
 }

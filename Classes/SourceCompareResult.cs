@@ -19,10 +19,17 @@ namespace CargoRocketFontes.Classes
         public List<SourceDiff> sourceDiff;
         public List<Source> sourceNonExistent;
 
+
         public SourceCompareResult()
         {
             sourceDiff = new List<SourceDiff>();
             sourceNonExistent = new List<Source>();
+        }
+
+        public void Clear()
+        {
+            sourceDiff.Clear();
+            sourceNonExistent.Clear();
         }
     }
 }
