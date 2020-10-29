@@ -111,7 +111,7 @@ namespace CargoRocketFontes
             sourceCompare.ProgressInitialize += SourceCompare_ProgressInitialize;
             sourceCompare.ProgressChanged += SourceCompare_ProgressChanged;
             sourceCompareResult.Clear();
-            sourceCompareResult = sourceCompare.Run(textBoxRepository.Text, textBoxSources.Text, sourceCompareOptions, sender as BackgroundWorker);
+            sourceCompareResult = sourceCompare.Run(textBoxRepository.Text, textBoxSources.Text, sourceCompareOptions, textBoxExtensions.Text);
             // sourceCompareResult = sourceCompare.Teste(textBoxRepository.Text, textBoxSources.Text, sourceCompareOptions, sender as BackgroundWorker);
         }
 

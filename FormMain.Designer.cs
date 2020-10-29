@@ -30,6 +30,13 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBoxResult = new System.Windows.Forms.GroupBox();
+            this.labelSourcesNotFound = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.labelTotalDiffSources = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelTotalSourceRepository = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.checkBoxDiscardHour = new System.Windows.Forms.CheckBox();
             this.checkBoxWithouSeconds = new System.Windows.Forms.CheckBox();
             this.textBoxSources = new System.Windows.Forms.TextBox();
@@ -38,34 +45,29 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageResult = new System.Windows.Forms.TabPage();
             this.textBoxResult = new System.Windows.Forms.TextBox();
-            this.buttonRun = new System.Windows.Forms.Button();
-            this.progressBarExec = new System.Windows.Forms.ProgressBar();
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.tabPageDiffSources = new System.Windows.Forms.TabPage();
-            this.tabPageSourceNotFound = new System.Windows.Forms.TabPage();
-            this.groupBoxResult = new System.Windows.Forms.GroupBox();
             this.listViewDiffSource = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label3 = new System.Windows.Forms.Label();
-            this.labelTotalSourceRepository = new System.Windows.Forms.Label();
-            this.labelTotalDiffSources = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.labelSourcesNotFound = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.tabPageSourceNotFound = new System.Windows.Forms.TabPage();
             this.listViewSourcesNotFound = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonRun = new System.Windows.Forms.Button();
+            this.progressBarExec = new System.Windows.Forms.ProgressBar();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.textBoxExtensions = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBoxResult.SuspendLayout();
             this.tabPageResult.SuspendLayout();
             this.tabPageDiffSources.SuspendLayout();
             this.tabPageSourceNotFound.SuspendLayout();
-            this.groupBoxResult.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -85,6 +87,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.textBoxExtensions);
+            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.groupBoxResult);
             this.tabPage1.Controls.Add(this.checkBoxDiscardHour);
             this.tabPage1.Controls.Add(this.checkBoxWithouSeconds);
@@ -95,15 +99,88 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 371);
+            this.tabPage1.Size = new System.Drawing.Size(899, 372);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Configuração";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBoxResult
+            // 
+            this.groupBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxResult.Controls.Add(this.labelSourcesNotFound);
+            this.groupBoxResult.Controls.Add(this.label7);
+            this.groupBoxResult.Controls.Add(this.labelTotalDiffSources);
+            this.groupBoxResult.Controls.Add(this.label5);
+            this.groupBoxResult.Controls.Add(this.labelTotalSourceRepository);
+            this.groupBoxResult.Controls.Add(this.label3);
+            this.groupBoxResult.Location = new System.Drawing.Point(9, 233);
+            this.groupBoxResult.Name = "groupBoxResult";
+            this.groupBoxResult.Size = new System.Drawing.Size(752, 124);
+            this.groupBoxResult.TabIndex = 6;
+            this.groupBoxResult.TabStop = false;
+            this.groupBoxResult.Text = "Resultado";
+            this.groupBoxResult.Visible = false;
+            // 
+            // labelSourcesNotFound
+            // 
+            this.labelSourcesNotFound.AutoSize = true;
+            this.labelSourcesNotFound.Location = new System.Drawing.Point(175, 70);
+            this.labelSourcesNotFound.Name = "labelSourcesNotFound";
+            this.labelSourcesNotFound.Size = new System.Drawing.Size(13, 13);
+            this.labelSourcesNotFound.TabIndex = 5;
+            this.labelSourcesNotFound.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(17, 70);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(158, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Total de fontes não compilados:";
+            // 
+            // labelTotalDiffSources
+            // 
+            this.labelTotalDiffSources.AutoSize = true;
+            this.labelTotalDiffSources.Location = new System.Drawing.Point(175, 48);
+            this.labelTotalDiffSources.Name = "labelTotalDiffSources";
+            this.labelTotalDiffSources.Size = new System.Drawing.Size(13, 13);
+            this.labelTotalDiffSources.TabIndex = 3;
+            this.labelTotalDiffSources.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(156, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Total de fontes com diferenças:";
+            // 
+            // labelTotalSourceRepository
+            // 
+            this.labelTotalSourceRepository.AutoSize = true;
+            this.labelTotalSourceRepository.Location = new System.Drawing.Point(175, 25);
+            this.labelTotalSourceRepository.Name = "labelTotalSourceRepository";
+            this.labelTotalSourceRepository.Size = new System.Drawing.Size(13, 13);
+            this.labelTotalSourceRepository.TabIndex = 1;
+            this.labelTotalSourceRepository.Text = "0";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(147, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Total de fontes no repositório:";
+            // 
             // checkBoxDiscardHour
             // 
             this.checkBoxDiscardHour.AutoSize = true;
-            this.checkBoxDiscardHour.Location = new System.Drawing.Point(9, 113);
+            this.checkBoxDiscardHour.Location = new System.Drawing.Point(11, 175);
             this.checkBoxDiscardHour.Name = "checkBoxDiscardHour";
             this.checkBoxDiscardHour.Size = new System.Drawing.Size(115, 17);
             this.checkBoxDiscardHour.TabIndex = 5;
@@ -114,7 +191,7 @@
             // checkBoxWithouSeconds
             // 
             this.checkBoxWithouSeconds.AutoSize = true;
-            this.checkBoxWithouSeconds.Location = new System.Drawing.Point(9, 136);
+            this.checkBoxWithouSeconds.Location = new System.Drawing.Point(11, 198);
             this.checkBoxWithouSeconds.Name = "checkBoxWithouSeconds";
             this.checkBoxWithouSeconds.Size = new System.Drawing.Size(140, 17);
             this.checkBoxWithouSeconds.TabIndex = 4;
@@ -166,7 +243,7 @@
             this.tabPageResult.Location = new System.Drawing.Point(4, 22);
             this.tabPageResult.Name = "tabPageResult";
             this.tabPageResult.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageResult.Size = new System.Drawing.Size(978, 372);
+            this.tabPageResult.Size = new System.Drawing.Size(899, 372);
             this.tabPageResult.TabIndex = 1;
             this.tabPageResult.Text = "Resultado";
             this.tabPageResult.UseVisualStyleBackColor = true;
@@ -183,31 +260,6 @@
             this.textBoxResult.Size = new System.Drawing.Size(966, 360);
             this.textBoxResult.TabIndex = 0;
             // 
-            // buttonRun
-            // 
-            this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRun.Location = new System.Drawing.Point(12, 416);
-            this.buttonRun.Name = "buttonRun";
-            this.buttonRun.Size = new System.Drawing.Size(75, 23);
-            this.buttonRun.TabIndex = 1;
-            this.buttonRun.Text = "Executar";
-            this.buttonRun.UseVisualStyleBackColor = true;
-            this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
-            // 
-            // progressBarExec
-            // 
-            this.progressBarExec.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarExec.Location = new System.Drawing.Point(93, 416);
-            this.progressBarExec.Name = "progressBarExec";
-            this.progressBarExec.Size = new System.Drawing.Size(822, 23);
-            this.progressBarExec.TabIndex = 2;
-            // 
-            // backgroundWorker
-            // 
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
-            // 
             // tabPageDiffSources
             // 
             this.tabPageDiffSources.Controls.Add(this.listViewDiffSource);
@@ -217,35 +269,6 @@
             this.tabPageDiffSources.TabIndex = 2;
             this.tabPageDiffSources.Text = "Fontes divergente";
             this.tabPageDiffSources.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSourceNotFound
-            // 
-            this.tabPageSourceNotFound.Controls.Add(this.listViewSourcesNotFound);
-            this.tabPageSourceNotFound.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSourceNotFound.Name = "tabPageSourceNotFound";
-            this.tabPageSourceNotFound.Size = new System.Drawing.Size(899, 372);
-            this.tabPageSourceNotFound.TabIndex = 3;
-            this.tabPageSourceNotFound.Text = "Fontes não encontrados";
-            this.tabPageSourceNotFound.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxResult
-            // 
-            this.groupBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxResult.Controls.Add(this.labelSourcesNotFound);
-            this.groupBoxResult.Controls.Add(this.label7);
-            this.groupBoxResult.Controls.Add(this.labelTotalDiffSources);
-            this.groupBoxResult.Controls.Add(this.label5);
-            this.groupBoxResult.Controls.Add(this.labelTotalSourceRepository);
-            this.groupBoxResult.Controls.Add(this.label3);
-            this.groupBoxResult.Location = new System.Drawing.Point(10, 169);
-            this.groupBoxResult.Name = "groupBoxResult";
-            this.groupBoxResult.Size = new System.Drawing.Size(752, 196);
-            this.groupBoxResult.TabIndex = 6;
-            this.groupBoxResult.TabStop = false;
-            this.groupBoxResult.Text = "Resultado";
-            this.groupBoxResult.Visible = false;
             // 
             // listViewDiffSource
             // 
@@ -293,59 +316,15 @@
             this.columnHeader5.Text = "Hora Rep.";
             this.columnHeader5.Width = 90;
             // 
-            // label3
+            // tabPageSourceNotFound
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 25);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Total de fontes no repositório:";
-            // 
-            // labelTotalSourceRepository
-            // 
-            this.labelTotalSourceRepository.AutoSize = true;
-            this.labelTotalSourceRepository.Location = new System.Drawing.Point(175, 25);
-            this.labelTotalSourceRepository.Name = "labelTotalSourceRepository";
-            this.labelTotalSourceRepository.Size = new System.Drawing.Size(13, 13);
-            this.labelTotalSourceRepository.TabIndex = 1;
-            this.labelTotalSourceRepository.Text = "0";
-            // 
-            // labelTotalDiffSources
-            // 
-            this.labelTotalDiffSources.AutoSize = true;
-            this.labelTotalDiffSources.Location = new System.Drawing.Point(175, 48);
-            this.labelTotalDiffSources.Name = "labelTotalDiffSources";
-            this.labelTotalDiffSources.Size = new System.Drawing.Size(13, 13);
-            this.labelTotalDiffSources.TabIndex = 3;
-            this.labelTotalDiffSources.Text = "0";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 48);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(156, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Total de fontes com diferenças:";
-            // 
-            // labelSourcesNotFound
-            // 
-            this.labelSourcesNotFound.AutoSize = true;
-            this.labelSourcesNotFound.Location = new System.Drawing.Point(175, 70);
-            this.labelSourcesNotFound.Name = "labelSourcesNotFound";
-            this.labelSourcesNotFound.Size = new System.Drawing.Size(13, 13);
-            this.labelSourcesNotFound.TabIndex = 5;
-            this.labelSourcesNotFound.Text = "0";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 70);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(158, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Total de fontes não compilados:";
+            this.tabPageSourceNotFound.Controls.Add(this.listViewSourcesNotFound);
+            this.tabPageSourceNotFound.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSourceNotFound.Name = "tabPageSourceNotFound";
+            this.tabPageSourceNotFound.Size = new System.Drawing.Size(899, 372);
+            this.tabPageSourceNotFound.TabIndex = 3;
+            this.tabPageSourceNotFound.Text = "Fontes não encontrados";
+            this.tabPageSourceNotFound.UseVisualStyleBackColor = true;
             // 
             // listViewSourcesNotFound
             // 
@@ -381,6 +360,50 @@
             this.columnHeader10.Text = "Hora Rep.";
             this.columnHeader10.Width = 90;
             // 
+            // buttonRun
+            // 
+            this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRun.Location = new System.Drawing.Point(12, 416);
+            this.buttonRun.Name = "buttonRun";
+            this.buttonRun.Size = new System.Drawing.Size(75, 23);
+            this.buttonRun.TabIndex = 1;
+            this.buttonRun.Text = "Executar";
+            this.buttonRun.UseVisualStyleBackColor = true;
+            this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
+            // 
+            // progressBarExec
+            // 
+            this.progressBarExec.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarExec.Location = new System.Drawing.Point(93, 416);
+            this.progressBarExec.Name = "progressBarExec";
+            this.progressBarExec.Size = new System.Drawing.Size(822, 23);
+            this.progressBarExec.TabIndex = 2;
+            // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
+            // 
+            // textBoxExtensions
+            // 
+            this.textBoxExtensions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxExtensions.Location = new System.Drawing.Point(11, 133);
+            this.textBoxExtensions.Name = "textBoxExtensions";
+            this.textBoxExtensions.Size = new System.Drawing.Size(753, 20);
+            this.textBoxExtensions.TabIndex = 8;
+            this.textBoxExtensions.Text = "*.prw";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 117);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Extensões:";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -395,12 +418,12 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBoxResult.ResumeLayout(false);
+            this.groupBoxResult.PerformLayout();
             this.tabPageResult.ResumeLayout(false);
             this.tabPageResult.PerformLayout();
             this.tabPageDiffSources.ResumeLayout(false);
             this.tabPageSourceNotFound.ResumeLayout(false);
-            this.groupBoxResult.ResumeLayout(false);
-            this.groupBoxResult.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -439,6 +462,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.TextBox textBoxExtensions;
+        private System.Windows.Forms.Label label4;
     }
 }
 

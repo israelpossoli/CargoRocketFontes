@@ -27,7 +27,7 @@ namespace CargoRocketFontes.Classes
 
         }
 
-        public SourceCompareResult Run(string repository, string sourcesFile, SourceCompareOptions options, BackgroundWorker backgroundWorker, string pattern = "*.*")
+        public SourceCompareResult Run(string repository, string sourcesFile, SourceCompareOptions options, string pattern = "*.*")
         {
             SourceCompareResult result = new SourceCompareResult();
             string[] repositoryFiles;
