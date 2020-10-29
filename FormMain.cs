@@ -35,6 +35,9 @@ namespace CargoRocketFontes
         private void buttonRun_Click(object sender, EventArgs e)
         {
             buttonRun.Enabled = false;
+            groupBoxResult.Visible = false;
+            textBoxResult.Clear();
+            listViewDiffSource.Items.Clear();
             progressBarExec.Value = 0;
             progressBarExec.Style = ProgressBarStyle.Marquee;
 
@@ -114,6 +117,10 @@ namespace CargoRocketFontes
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            groupBoxResult.Visible = true;
+            labelTotalSourceRepository.Text = sourceCompareResult.totalSourceRepository.ToString();
+            labelTotalDiffSources.Text = sourceCompareResult.sourceDiff.Count.ToString();
+            labelSourcesNotFound.Text = sourceCompareResult.sourceNonExistent.Count.ToString();
             textBoxResult.Clear();
 
             if (sourceCompareResult.sourceDiff.Count > 0)
@@ -122,8 +129,19 @@ namespace CargoRocketFontes
                 textBoxResult.AppendText("---------------------------------------" + Environment.NewLine);
                 for (int i = 0; i < sourceCompareResult.sourceDiff.Count; i++)
                 {
-                    textBoxResult.AppendText(sourceCompareResult.sourceDiff[i].filename + "=> " + sourceCompareResult.sourceDiff[i].DateRPO + ":" + sourceCompareResult.sourceDiff[i].HourRPO + " X " + sourceCompareResult.sourceDiff[i].DateRepository + ":" + sourceCompareResult.sourceDiff[i].HourRepository + Environment.NewLine);
+                    ListViewItem listViewItem = new ListViewItem();
+                    ListViewItem.ListViewSubItem listViewSubItem = new ListViewItem.ListViewSubItem();
+                    listViewItem.Text = sourceCompareResult.sourceDiff[i].FullFilename;
+                    listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceDiff[i].DateRPO));
+                    listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceDiff[i].HourRPO));
+                    listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceDiff[i].DateRepository));
+                    listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceDiff[i].HourRepository));
+                    // listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(sourceCompareResult.sourceDiff[i].DateRPO));
+                    listViewDiffSource.Items.Add(listViewItem);
+
+                    textBoxResult.AppendText(sourceCompareResult.sourceDiff[i].Filename + "=> " + sourceCompareResult.sourceDiff[i].DateRPO + ":" + sourceCompareResult.sourceDiff[i].HourRPO + " X " + sourceCompareResult.sourceDiff[i].DateRepository + ":" + sourceCompareResult.sourceDiff[i].HourRepository + Environment.NewLine);
                 }
+                listViewDiffSource.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             }
 
 
@@ -134,12 +152,22 @@ namespace CargoRocketFontes
                     textBoxResult.AppendText(Environment.NewLine);
                     textBoxResult.AppendText(Environment.NewLine);
                 }
-                textBoxResult.AppendText("Fontes não existentes no RPO" + Environment.NewLine);
+                textBoxResult.AppendText("Fontes não compilados no RPO" + Environment.NewLine);
                 textBoxResult.AppendText("----------------------------" + Environment.NewLine);
                 for (int i = 0; i < sourceCompareResult.sourceNonExistent.Count; i++)
                 {
-                    textBoxResult.AppendText(sourceCompareResult.sourceNonExistent[i].filename + Environment.NewLine);
+                    ListViewItem listViewItem = new ListViewItem();
+                    ListViewItem.ListViewSubItem listViewSubItem = new ListViewItem.ListViewSubItem();
+                    listViewItem.Text = sourceCompareResult.sourceNonExistent[i].FullFilename;
+                    listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceNonExistent[i].Date));
+                    listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceNonExistent[i].Hour));
+                    // listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(sourceCompareResult.sourceDiff[i].DateRPO));
+                    listViewSourcesNotFound.Items.Add(listViewItem);
+
+                    textBoxResult.AppendText(sourceCompareResult.sourceNonExistent[i].Filename + Environment.NewLine);
                 }
+
+                listViewSourcesNotFound.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             }
 
             buttonRun.Enabled = true;

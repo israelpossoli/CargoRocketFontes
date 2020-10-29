@@ -27,22 +27,6 @@ namespace CargoRocketFontes.Classes
 
         }
 
-        public SourceCompareResult Teste(string repository, string sourcesFile, SourceCompareOptions options, BackgroundWorker backgroundWorker, string pattern = "*.*")
-        {
-            SourceCompareResult result = new SourceCompareResult();
-
-            OnProgressInitialize(0, 99);
-            for (int i = 0; i < 100; i++)
-            {
-                Thread.Sleep(100);
-                OnProgressChanged(i);
-            }
-
-            
-
-            return result;
-        }
-
         public SourceCompareResult Run(string repository, string sourcesFile, SourceCompareOptions options, BackgroundWorker backgroundWorker, string pattern = "*.*")
         {
             SourceCompareResult result = new SourceCompareResult();
@@ -67,9 +51,9 @@ namespace CargoRocketFontes.Classes
 
                         DateTime date = DateTime.Parse(sourceInfo[1]);
                         Source s = new Source();
-                        s.filename = sourceInfo[0];
-                        s.date = date.ToShortDateString();
-                        s.hour = sourceInfo[2];
+                        s.Filename = sourceInfo[0];
+                        s.Date = date.ToShortDateString();
+                        s.Hour = sourceInfo[2];
                         sources.Add(s);
                     }
 
@@ -77,6 +61,7 @@ namespace CargoRocketFontes.Classes
             }
 
             repositoryFiles = Directory.GetFiles(repository, pattern, SearchOption.AllDirectories);
+            result.totalSourceRepository = repositoryFiles.Length;
 
             OnProgressInitialize(0, repositoryFiles.Length -1);
 
@@ -84,34 +69,36 @@ namespace CargoRocketFontes.Classes
             {
                 OnProgressChanged(i);
                 string filename = Path.GetFileName(repositoryFiles[i]).ToLower();
-                DateTime fileModification = File.GetCreationTime(repositoryFiles[i]);
+                string fullFilename = repositoryFiles[i];
+                DateTime fileModification = File.GetLastWriteTime(repositoryFiles[i]);
                 string dateRepository = fileModification.ToShortDateString();
                 string hourRepository = fileModification.ToLongTimeString();
                 bool diff = false;
 
-                Source s = sources.Find(x => x.filename.ToLower() == filename);
-                if (s.filename == null)
+                Source s = sources.Find(x => x.Filename.ToLower() == filename);
+                if (s.Filename == null)
                 {
                     Source sourceNonExistent = new Source();
-                    sourceNonExistent.filename = filename;
-                    sourceNonExistent.date = dateRepository;
-                    sourceNonExistent.hour = hourRepository;
+                    sourceNonExistent.Filename = filename;
+                    sourceNonExistent.FullFilename = fullFilename;
+                    sourceNonExistent.Date = dateRepository;
+                    sourceNonExistent.Hour = hourRepository;
                     result.sourceNonExistent.Add(sourceNonExistent);
                 }
                 else
                 {
-                    if (dateRepository == s.date)
+                    if (dateRepository == s.Date)
                     {
                         if (options == SourceCompareOptions.DEFAULT)
                         {
-                            if (hourRepository != s.hour)
+                            if (hourRepository != s.Hour)
                             {
                                 diff = true;
                             }
                         }
                         else if (options == SourceCompareOptions.DISCARD_SECONDS)
                         {
-                            if (hourRepository.Substring(0, 5) != s.hour.Substring(0, 5))
+                            if (hourRepository.Substring(0, 5) != s.Hour.Substring(0, 5))
                             {
                                 diff = true;
                             }
@@ -125,9 +112,10 @@ namespace CargoRocketFontes.Classes
                     if (diff)
                     {
                         SourceDiff sourceDiff = new SourceDiff();
-                        sourceDiff.filename = filename;
-                        sourceDiff.DateRPO = s.date;
-                        sourceDiff.HourRPO = s.hour;
+                        sourceDiff.Filename = filename;
+                        sourceDiff.FullFilename = fullFilename;
+                        sourceDiff.DateRPO = s.Date;
+                        sourceDiff.HourRPO = s.Hour;
                         sourceDiff.DateRepository = dateRepository;
                         sourceDiff.HourRepository = hourRepository;
                         result.sourceDiff.Add(sourceDiff);

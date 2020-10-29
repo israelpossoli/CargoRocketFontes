@@ -8,7 +8,8 @@ namespace CargoRocketFontes.Classes
 {
     public struct SourceDiff
     {
-        public string filename;
+        public string Filename;
+        public string FullFilename;
         public string DateRPO;
         public string HourRPO;
         public string DateRepository;
@@ -16,6 +17,7 @@ namespace CargoRocketFontes.Classes
     }
     public class SourceCompareResult
     {
+        public int totalSourceRepository;
         public List<SourceDiff> sourceDiff;
         public List<Source> sourceNonExistent;
 

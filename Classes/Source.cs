@@ -8,8 +8,9 @@ namespace CargoRocketFontes.Classes
 {
     public struct Source
     {
-        public string filename;
-        public string date;
-        public string hour;
+        public string Filename;
+        public string FullFilename;
+        public string Date;
+        public string Hour;
     }
 }
