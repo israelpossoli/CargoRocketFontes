@@ -10,7 +10,7 @@ namespace CargoRocketFontes.Classes
 {
     public class Config
     {
-        public static string Version = "2020-10-26";
+        public static string Version = "2020-10-29";
         public string RepositoryPath;
 
         public Config()
