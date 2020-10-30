@@ -118,6 +118,9 @@ namespace CargoRocketFontes.Classes
                         sourceDiff.HourRPO = s.Hour;
                         sourceDiff.DateRepository = dateRepository;
                         sourceDiff.HourRepository = hourRepository;
+                        sourceDiff.DateTimeRPO = StringToDateTime(sourceDiff.DateRPO, sourceDiff.HourRPO);
+                        sourceDiff.DateTimeRepository = StringToDateTime(sourceDiff.DateRepository, sourceDiff.HourRepository);
+
                         result.sourceDiff.Add(sourceDiff);
                     }
 
@@ -125,7 +128,31 @@ namespace CargoRocketFontes.Classes
             }
 
             return result;
+        }
 
+        private DateTime StringToDateTime(string date, string time)
+        {
+            DateTime ret;
+            int year, month, day;
+            int hour, min, sec;
+
+            year = Convert.ToInt32(date.Substring(6, 4));
+            month = Convert.ToInt32(date.Substring(3, 2));
+            day = Convert.ToInt32(date.Substring(0, 2));
+            hour = Convert.ToInt32(time.Substring(0, 2));
+            min = Convert.ToInt32(time.Substring(3, 2));
+            if (time.Length >= 6)
+            {
+                sec = Convert.ToInt32(time.Substring(6, 2));
+            }
+            else
+            {
+                sec = 0;
+            }
+           
+
+            ret = new DateTime(year, month, day, hour, min, sec);
+            return ret;
         }
 
         private void OnProgressInitialize(int min, int max)

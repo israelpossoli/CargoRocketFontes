@@ -14,6 +14,8 @@ namespace CargoRocketFontes.Classes
         public string HourRPO;
         public string DateRepository;
         public string HourRepository;
+        public DateTime DateTimeRPO;
+        public DateTime DateTimeRepository;
     }
     public class SourceCompareResult
     {

@@ -129,13 +129,63 @@ namespace CargoRocketFontes
                 textBoxResult.AppendText("---------------------------------------" + Environment.NewLine);
                 for (int i = 0; i < sourceCompareResult.sourceDiff.Count; i++)
                 {
+                    bool diffDateRPO = false;
+                    bool diffDateRepository = false;
+                    bool equalDates = false;
                     ListViewItem listViewItem = new ListViewItem();
                     ListViewItem.ListViewSubItem listViewSubItem = new ListViewItem.ListViewSubItem();
                     listViewItem.Text = sourceCompareResult.sourceDiff[i].FullFilename;
+
+                    // if (sourceCompareResult.sourceDiff[i].DateRPO < sourceCompareResult.sourceDiff[i].DateRepository)
+                    {
+
+                    }
+                    
                     listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceDiff[i].DateRPO));
                     listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceDiff[i].HourRPO));
                     listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceDiff[i].DateRepository));
                     listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(listViewItem, sourceCompareResult.sourceDiff[i].HourRepository));
+
+
+                    if (sourceCompareResult.sourceDiff[i].DateTimeRPO.Date < sourceCompareResult.sourceDiff[i].DateTimeRepository.Date)
+                    {
+                        listViewItem.SubItems[1].ForeColor = Color.Red;
+                        diffDateRPO = true;
+                    }
+                    else if(sourceCompareResult.sourceDiff[i].DateTimeRPO.Date == sourceCompareResult.sourceDiff[i].DateTimeRepository.Date)
+                    {
+                        listViewItem.SubItems[1].ForeColor = Color.Blue;
+                        equalDates = true;
+                    }
+
+                    
+                    if (diffDateRPO || (equalDates && sourceCompareResult.sourceDiff[i].DateTimeRPO.TimeOfDay < sourceCompareResult.sourceDiff[i].DateTimeRepository.TimeOfDay))
+                    {
+                        listViewItem.SubItems[2].ForeColor = Color.Red;
+                    }
+
+
+                    
+                    if (sourceCompareResult.sourceDiff[i].DateTimeRepository.Date < sourceCompareResult.sourceDiff[i].DateTimeRPO.Date)
+                    {
+                        listViewItem.SubItems[3].ForeColor = Color.Red;
+                        diffDateRepository = true;
+                    }
+                    else if (sourceCompareResult.sourceDiff[i].DateTimeRepository.Date == sourceCompareResult.sourceDiff[i].DateTimeRPO.Date)
+                    {
+                        listViewItem.SubItems[3].ForeColor = Color.Blue;
+                        equalDates = true;
+                    }
+
+
+                    
+                    if (diffDateRepository || (equalDates && sourceCompareResult.sourceDiff[i].DateTimeRepository.TimeOfDay < sourceCompareResult.sourceDiff[i].DateTimeRPO.TimeOfDay))
+                    {
+                        listViewItem.SubItems[4].ForeColor = Color.Red;
+                    }
+
+
+                    listViewItem.UseItemStyleForSubItems = false;
                     // listViewItem.SubItems.Add(new ListViewItem.ListViewSubItem(sourceCompareResult.sourceDiff[i].DateRPO));
                     listViewDiffSource.Items.Add(listViewItem);
 
