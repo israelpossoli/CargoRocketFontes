@@ -113,7 +113,7 @@ namespace CargoRocketFontes.Classes
                     {
                         SourceDiff sourceDiff = new SourceDiff();
                         sourceDiff.Filename = filename;
-                        sourceDiff.FullFilename = fullFilename;
+                        sourceDiff.FullFilename = fullFilename.Replace(repository, "");
                         sourceDiff.DateRPO = s.Date;
                         sourceDiff.HourRPO = s.Hour;
                         sourceDiff.DateRepository = dateRepository;

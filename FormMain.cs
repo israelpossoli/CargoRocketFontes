@@ -38,6 +38,7 @@ namespace CargoRocketFontes
             groupBoxResult.Visible = false;
             textBoxResult.Clear();
             listViewDiffSource.Items.Clear();
+            listViewSourcesNotFound.Items.Clear();
             progressBarExec.Value = 0;
             progressBarExec.Style = ProgressBarStyle.Marquee;
 

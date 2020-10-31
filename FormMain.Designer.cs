@@ -76,9 +76,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPageResult);
             this.tabControl1.Controls.Add(this.tabPageDiffSources);
             this.tabControl1.Controls.Add(this.tabPageSourceNotFound);
+            this.tabControl1.Controls.Add(this.tabPageResult);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -117,7 +117,7 @@
             this.groupBoxResult.Controls.Add(this.label3);
             this.groupBoxResult.Location = new System.Drawing.Point(9, 233);
             this.groupBoxResult.Name = "groupBoxResult";
-            this.groupBoxResult.Size = new System.Drawing.Size(752, 124);
+            this.groupBoxResult.Size = new System.Drawing.Size(708, 124);
             this.groupBoxResult.TabIndex = 6;
             this.groupBoxResult.TabStop = false;
             this.groupBoxResult.Text = "Resultado";
@@ -205,7 +205,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSources.Location = new System.Drawing.Point(9, 75);
             this.textBoxSources.Name = "textBoxSources";
-            this.textBoxSources.Size = new System.Drawing.Size(753, 20);
+            this.textBoxSources.Size = new System.Drawing.Size(708, 20);
             this.textBoxSources.TabIndex = 3;
             this.textBoxSources.Text = "C:\\Cargolift\\Temp\\SourceCompare\\exporta_dados.csv";
             // 
@@ -215,7 +215,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxRepository.Location = new System.Drawing.Point(9, 19);
             this.textBoxRepository.Name = "textBoxRepository";
-            this.textBoxRepository.Size = new System.Drawing.Size(753, 20);
+            this.textBoxRepository.Size = new System.Drawing.Size(708, 20);
             this.textBoxRepository.TabIndex = 2;
             this.textBoxRepository.Text = "C:\\Cargolift\\SVN\\Protheus\\trunk\\V12\\PROTHEUS12";
             // 
@@ -323,7 +323,7 @@
             this.tabPageSourceNotFound.Name = "tabPageSourceNotFound";
             this.tabPageSourceNotFound.Size = new System.Drawing.Size(899, 372);
             this.tabPageSourceNotFound.TabIndex = 3;
-            this.tabPageSourceNotFound.Text = "Fontes não encontrados";
+            this.tabPageSourceNotFound.Text = "Fontes não compilados";
             this.tabPageSourceNotFound.UseVisualStyleBackColor = true;
             // 
             // listViewSourcesNotFound
@@ -391,7 +391,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExtensions.Location = new System.Drawing.Point(11, 133);
             this.textBoxExtensions.Name = "textBoxExtensions";
-            this.textBoxExtensions.Size = new System.Drawing.Size(753, 20);
+            this.textBoxExtensions.Size = new System.Drawing.Size(706, 20);
             this.textBoxExtensions.TabIndex = 8;
             this.textBoxExtensions.Text = "*.prw";
             // 
